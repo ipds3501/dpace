@@ -4,36 +4,39 @@
 {% block modal %}
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col">
-                            <h5 class="modal-title text-center font-weight-bold" id="exampleModalLongTitle"></h5>
-                        </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="modalPicture" class="d-flex justify-content-center">
+                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:100%;" loading="lazy">
+            </div>
+                
+            <div id="exampleModalContent" class="text-justify"></div> 
+          </div>
+          <div class="modal-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <a role="button" class="btn btn-primary " id="exampleModalButton" href="#">Unduh</a>
                     </div>
-                    
-                    
-                </div>
-                <div class="modal-body" >
-                    <div id="modalPicture" class="d-flex justify-content-center">
-                        <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:100%;" loading="lazy">
+                    <div class="col">
+                       <button type="button" class="btn btn-secondary " data-dismiss="modal">Tutup</button>
                     </div>
-                        
-                    <div id="exampleModalContent" class="text-justify"></div>                    
-                </div>
-                <div class="modal-footer">
-                    <a class="btn btn-secondary btn-sm mt-0 mb-2 rounded-pill shadow-none w-100" id="exampleModalButton" href="#" role="button">Unduh</a>
                 </div>
             </div>
+            
+            
+          </div>
         </div>
+      </div>
     </div>
+
 {% endblock modal %}
 
 {% block content %}
@@ -479,6 +482,7 @@
                         $("#exampleModalLongTitle").text(json_data.title);
                         $("#exampleModalContent").text(json_data.abstract);
                         $("#modalimage").attr("src",json_data.cover);
+                        $("#exampleModalButton").show();
                         $("#exampleModalButton").attr("href", json_data.pdf)
                         $(".ajaxProgess").hide();
                     }
@@ -636,6 +640,7 @@
                         var output = txt.value;
                         $("#exampleModalLongTitle").text(json_data.title);
                         $("#exampleModalContent").html(output);
+                        $("#exampleModalButton").show();
                         $("#exampleModalButton").attr("href", json_data.pdf)
                         $(".ajaxProgess").hide();
                     }
@@ -859,56 +864,68 @@
                     });
                 }
             });
-
-           
-        });
-        //ADD MORE DATA
-        $('body').on('click', '.subcat', function (){
-            // alert($(this).attr('data-target'));
-            
-            var clickedcategory=($(this).attr('data-target'));
-            // alert(clickedcategory);
-            
-            var isclicked = $('#' + clickedcategory.replace("#","")).length;
-            // console.log(isclicked);
-            if (isclicked === 0){
+            //ADD MORE DATA
+            $('body').on('click', '.subcat', function (){
+                // alert($(this).attr('data-target'));
                 
-                $(".ajaxProgess").show();
-                $.ajax({
-                    url:"{% url 'load_more_data' %}",
-                    type:'post',
-                    data:{
-                        'offset':clickedcategory,
-                        'csrfmiddlewaretoken':"{{csrf_token}}"
-                    },
-                    dataType:'json',
-                    beforeSend:function(){
-                        // $("#load_brs").addClass('disabled').text('Loading..');
-                    },
-                    success:function(res){
-                        $(".ajaxProgess").hide();
-                        var _html='<div class="collapse bg-white show mb-1 pb-2 border-bottom border-light" id="'+clickedcategory.replace("#","")+'">';
-                        var json_data=res.posts;
-                        console.log(json_data);
-                        if(json_data.length>=1){
-                            for (var i = 0; i < json_data.length; i++) {
-                                _html+='<p class="mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify"><a href="'+json_data[i].excel+'" class="link-secondary"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></a></p>';
-                            };
-                            _html+='</div>'
-                        } else{
-                            _html+='<p>Data tidak ditemukan</p>';
-                            _html+='</div>'
+                var clickedcategory=($(this).attr('data-target'));
+                // alert(clickedcategory);
+                
+                var isclicked = $('#' + clickedcategory.replace("#","")).length;
+                // console.log(isclicked);
+                if (isclicked === 0){
+                    
+                    $(".ajaxProgess").show();
+                    $.ajax({
+                        url:"{% url 'load_more_data' %}",
+                        type:'post',
+                        data:{
+                            'offset':clickedcategory,
+                            'csrfmiddlewaretoken':"{{csrf_token}}"
+                        },
+                        dataType:'json',
+                        beforeSend:function(){
+                            // $("#load_brs").addClass('disabled').text('Loading..');
+                        },
+                        success:function(res){
+                            $(".ajaxProgess").hide();
+                            var _html='<div class="collapse bg-white show mb-1 pb-2 border-bottom border-light" id="'+clickedcategory.replace("#","")+'">';
+                            var json_data=res.posts;
+                            console.log(json_data);
+                            if(json_data.length>=1){
+                                for (var i = 0; i < json_data.length; i++) {
+                                    _html+='<p class="mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify"><a href="'+json_data[i].excel+'" class="link-secondary"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></a></p>';
+                                };
+                                _html+='</div>'
+                            } else{
+                                _html+='<p>Data tidak ditemukan</p>';
+                                _html+='</div>'
+                            }
+                            
+                            var clickedsubcat = "."+clickedcategory.replace("#","");
+                            // console.log(clickedsubcat);
+                            $(clickedsubcat).after(_html);
+
+
                         }
-                        
-                        var clickedsubcat = "."+clickedcategory.replace("#","");
-                        // console.log(clickedsubcat);
-                        $(clickedsubcat).after(_html);
-
-
-                    }
-                });
-            }
-            
+                    });
+                }
+                
+            });
+        });
+        
+        //DETAIL TENTANG 
+        $('body').on('click', 'a.tentangbutton', function (){
+            $("#exampleModalLongTitle").text("Tentang Aplikasi D'Pace ");
+            $("#exampleModalContent").html('<p>Aplikasi ini merupakan aplikasi karya BPS Kabupaten Pacitan berbasis '+
+             'Android. Konten utamapada aplikasi ini bersumber dari website BPS Kabupaten Pacitan. Pengembangan '+
+              'aplikasi ini akan terus dilakukan.</p>'+
+              '<p>Kami mengharapkan kritik, saran, serta kolaborasi yang dapat '+
+               'disampaikan melalui email bps3501@bps.go.id.</p>'+
+               "<p>Tim Pengembang Aplikasi D'Pace</br>"+
+               'BPS Kabupaten Pacitan</p>');
+            $("#modalimage").attr("src","https://i.imgur.com/hI8z7bG.png");
+            $("#exampleModalButton").hide();
         });
 
     </script>
