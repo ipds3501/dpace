@@ -14,19 +14,19 @@
           </div>
           <div class="modal-body">
             <div id="modalPicture" class="d-flex justify-content-center">
-                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:100%;" loading="lazy">
+                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:200px;" loading="lazy">
             </div>
                 
             <div id="exampleModalContent" class="text-justify"></div> 
           </div>
           <div class="modal-footer">
             <div class="container">
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     <div class="col">
-                        <a role="button" class="btn btn-primary " id="exampleModalButton" href="#">Unduh</a>
+                        <a role="button" class="btn btn-primary w-100" id="exampleModalButton" href="#">Unduh</a>
                     </div>
                     <div class="col">
-                       <button type="button" class="btn btn-secondary " data-dismiss="modal">Tutup</button>
+                       <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -200,8 +200,33 @@
                                     <div><h3 class="m-0 text-secondary">80.36</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
                                 </div>
                             </div>
-                               
-
+                            <div class="card-body container d-flex p-3 border border-secondary">
+                                <div class="card-indicator-icon mr-3">
+                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
+                                </div>
+                                <div class="card-indicator-text">
+                                    <div class="card-indicator-title">Pertumbuhan Ekonomi, 2020</div>
+                                    <div><h3 class="m-0 text-secondary">-1.84</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
+                                </div>
+                            </div>
+                            <div class="card-body container d-flex p-3 border border-secondary">
+                                <div class="card-indicator-icon mr-3">
+                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
+                                </div>
+                                <div class="card-indicator-text">
+                                    <div class="card-indicator-title">Indeks Pembangunan Manusia, 2020</div>
+                                    <div><h3 class="m-0 text-secondary">68.39</h3><p class="m-0 text-secondary"><small></small></p></div>
+                                </div>
+                            </div>
+                            <div class="card-body container d-flex p-3 border border-secondary">
+                                <div class="card-indicator-icon mr-3">
+                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
+                                </div>
+                                <div class="card-indicator-text">
+                                    <div class="card-indicator-title">Indeks Pembangunan Gender, 2020</div>
+                                    <div><h3 class="m-0 text-secondary">84.87</h3><p class="m-0 text-secondary"><small></small></p></div>
+                                </div>
+                            </div>
                         </div>
 
                             
@@ -480,7 +505,7 @@
                         var _html='';
                         var json_data=res.posts;
                         $("#exampleModalLongTitle").text(json_data.title);
-                        $("#exampleModalContent").text(json_data.abstract);
+                        $("#exampleModalContent").text(json_data.abstract.replace("<br>",""));
                         $("#modalimage").attr("src",json_data.cover);
                         $("#exampleModalButton").show();
                         $("#exampleModalButton").attr("href", json_data.pdf)
@@ -927,6 +952,7 @@
                'BPS Kabupaten Pacitan</p>');
             $("#modalimage").attr("src","https://i.imgur.com/omeryuR.png");
             $("#exampleModalButton").hide();
+
         });
 
     </script>
