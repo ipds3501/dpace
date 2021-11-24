@@ -67,13 +67,15 @@ p{
 	cursor: pointer;
 	align-items: center;
 	justify-content: center;
+
 }
 
 .tab i{
 	font-size: 12px;
-	padding-top: 15px;
+	padding-top: 0px;
 	transition: font-size 1s;
 	color: white;
+
 }
 
 .tab.active a i{
@@ -87,6 +89,7 @@ p{
 .tab.active a {
 	background: #fff!important;
 	color: #fff!important;
+
 }
 
 .tab p{
