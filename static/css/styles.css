@@ -26,11 +26,11 @@ p{
 }
 
 .coverpub{
-    background-image: url("https://i.pinimg.com/originals/be/f8/95/bef89546d03dce7e33399e22d6bee837.jpg");
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZoGnb58pe0NhHpjTWaxQMW79Y9FMmzI2ibTKIvti4-Cv-89ZTDzjCs6BPmtk7rBwvz18&usqp=CAU");
     background-size: 100% 200%;
 }
 .infopub{
-    background-image: url("https://i.pinimg.com/originals/be/f8/95/bef89546d03dce7e33399e22d6bee837.jpg");
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZoGnb58pe0NhHpjTWaxQMW79Y9FMmzI2ibTKIvti4-Cv-89ZTDzjCs6BPmtk7rBwvz18&usqp=CAU");
     background-size: 100% 200%;
     background-position: 50% 100%; 
 }
@@ -70,14 +70,14 @@ p{
 }
 
 .tab i{
-	font-size: 10px;
+	font-size: 12px;
 	padding-top: 15px;
 	transition: font-size 1s;
 	color: white;
 }
 
 .tab.active a i{
-	font-size: 20px;
+	font-size: 25px;
 	margin-left: 1px;
     padding-top: 0px;
     transition: padding-top 1s;
@@ -90,12 +90,11 @@ p{
 }
 
 .tab p{
-	font-weight: bold;
 	font-size: 12px;
-	overflow: hidden;
-	max-width: 0;
+	max-width: 500px;
 	margin-left: 0px;
 	padding: 0;
+  color: #fff;
     
 }
 

@@ -296,7 +296,7 @@
                             <div class="card-body container bg-dark" >
                                 <div class="row">
                                     <div class="col-sm-12 d-flex justify-content-center">
-                                        <a href="https://wa.me/+6285216765613" class="fa fa-whatsapp w-100"></a>
+                                        <a href="https://wa.me/+6281234563501" class="fa fa-whatsapp w-100"></a>
                                     </div>
                                     <div class="w-100"></div>
                                     <div class="col d-flex justify-content-center">Layanan Konsultasi Statistik</div>
@@ -928,7 +928,7 @@
                             console.log(json_data);
                             if(json_data.length>=1){
                                 for (var i = 0; i < json_data.length; i++) {
-                                    _html+='<p class="mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify"><a href="'+json_data[i].excel+'" class="link-secondary"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></a></p>';
+                                    _html+='<p class="mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify"><a  class="detaildata link-secondary" datalink="'+json_data[i].excel+'"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></a></p>';
                                 };
                                 _html+='</div>'
                             } else{
@@ -946,13 +946,51 @@
                 }
                 
             });
+
+            //DETAIL DATA
+            // $('body').on('click', 'a.detaildata', function (){
+            //     $(".ajaxProgess").show();
+            //     $("#exampleModalLongTitle").text("memuat....");
+            //     $("#exampleModalContent").text("memuat....");
+            //     $("#modalimage").attr("src","");
+            //     var _currentResult=$(this).attr('datalink');
+            //     console.log(_currentResult);
+            //     $.ajax({
+            //         url:"{% url 'detail_data' %}",
+            //         type:'post',
+            //         data:{
+            //             'csrfmiddlewaretoken':"{{csrf_token}}", 
+            //             'offset':_currentResult,
+            //         },
+            //         dataType:'json',
+            //         // success:function(res){
+            //         //     var _html='';
+            //         //     var json_data=res.posts;
+            //         //     var tes=""
+            //         //     if (json_data.news == ""){
+            //         //         tes = "detil berita tidak tersedia";
+            //         //     }else{
+            //         //         tes = json_data.news;
+            //         //     }
+            //         //     var txt = document.createElement("textarea");
+            //         //     txt.innerHTML = tes;
+            //         //     var output = txt.value;
+            //         //     $("#exampleModalLongTitle").text(json_data.title);
+            //         //     $("#modalimage").attr("src",json_data.picture);
+            //         //     $("#exampleModalContent").html(output);
+            //         //     $("#exampleModalButton").hide();
+            //         //     $(".ajaxProgess").hide();
+            //         // }
+            //     });
+            // });
+
         });
         
         //DETAIL TENTANG 
         $('body').on('click', 'a.tentangbutton', function (){
             $("#exampleModalLongTitle").text("Tentang Aplikasi D'Pace ");
             $("#exampleModalContent").html('<p>Aplikasi ini merupakan aplikasi karya BPS Kabupaten Pacitan berbasis '+
-             'Android. Konten utamapada aplikasi ini bersumber dari website BPS Kabupaten Pacitan. Pengembangan '+
+             'Android. Konten utama pada aplikasi ini bersumber dari website BPS Kabupaten Pacitan. Pengembangan '+
               'aplikasi ini akan terus dilakukan.</p>'+
               '<p>Kami mengharapkan kritik, saran, serta kolaborasi yang dapat '+
                'disampaikan melalui email bps3501@bps.go.id.</p>'+

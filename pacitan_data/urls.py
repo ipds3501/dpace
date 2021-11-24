@@ -35,4 +35,5 @@ urlpatterns = [
 
     path('load_init_data', views.load_init_data, name='load_init_data'),    
     path('load_more_data', views.load_more_data, name='load_more_data'),
+    path('detail_data', views.detail_data, name='detail_data'),
 ]

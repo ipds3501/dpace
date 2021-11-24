@@ -282,3 +282,11 @@ def load_more_data(request):
 	return JsonResponse(data={
 		'posts':posts,
 	})
+def detail_data(request):
+	posts=[]
+	offset=str(request.POST['offset'])
+	res = re.get(url)
+	data = res.json()
+	return JsonResponse(data={
+		'posts':posts,
+	})
