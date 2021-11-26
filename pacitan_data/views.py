@@ -4,8 +4,7 @@ from django.http import JsonResponse
 import json
 import ast
 import time
-import xlwt
-import xlrd
+
 
 def splash(request):
 	context = {
