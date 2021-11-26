@@ -4,6 +4,9 @@ from django.http import JsonResponse
 import json
 import ast
 import time
+import xlwt
+import xlrd
+
 def splash(request):
 	context = {
 		'Title' : 'Data Pacitan | Data Pacitan ',
@@ -260,24 +263,7 @@ def load_more_data(request):
 			posts.extend(data['data'][1])
 		else:
 			break
-	# VAR DYNAMIC TABLE
-	# for i in range(100):
-	# 	url = 'https://webapi.bps.go.id/v1/api/list'
-	# 	params = {
-	# 		'model': 'var',
-	# 		'lang': 'ind',
-	# 		'domain': '3501',
-	# 		'subject':int(offset.split("_")[1]),
-	# 		'page':i+1,
-	# 		'key': '481cbe5f8403e091cb7abfd4d83829a3'
-	# 	}
-	# 	res = re.get(url, params=params)
-	# 	data = res.json()
-	# 	print(data)
-	# 	if data['data-availability'] != 'list-not-available':
-	# 		posts.extend(data['data'][1])
-	# 	else:
-	# 		break    
+	  
 	
 	return JsonResponse(data={
 		'posts':posts,
@@ -285,8 +271,19 @@ def load_more_data(request):
 def detail_data(request):
 	posts=[]
 	offset=str(request.POST['offset'])
-	res = re.get(url)
+	url = 'https://webapi.bps.go.id/v1/api/view'
+	print(offset)
+	params = {
+		'model': 'statictable',
+		'lang': 'ind',
+		'domain': '3501',
+		'id':offset,
+		'key': '481cbe5f8403e091cb7abfd4d83829a3'
+	}
+	res = re.get(url, params=params)
 	data = res.json()
+	posts = data['data']
+	print(posts)
 	return JsonResponse(data={
 		'posts':posts,
 	})

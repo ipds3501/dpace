@@ -17,7 +17,7 @@
                 <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:200px;" loading="lazy">
             </div>
                 
-            <div id="exampleModalContent" class="text-justify"></div> 
+            <div id="exampleModalContent" class="text-justify overflow-auto"></div> 
           </div>
           <div class="modal-footer">
             <div class="container">
@@ -844,7 +844,7 @@
             $("#pills-data-tab").on('click',function(){
                 $('#header').text('Data Statistik');
                 if($("#subject_0").length<1){
-                    console.log($("#subject_0").length);
+                    // console.log($("#subject_0").length);
                     $(".ajaxProgess").show();
                     $(".container-data").hide();
                     $(window).scrollTop(0);
@@ -864,7 +864,7 @@
                             sosial=res.sosial;
                             ekonomi=res.ekonomi;
                             pertanian=res.pertanian;
-                            console.log(ekonomi);
+                            // console.log(ekonomi);
                             var _html1='<div class="collapse border border-primary" id="subject_0">';
                             var _html2='<div class="collapse border border-warning" id="subject_1">';
                             var _html3='<div class="collapse border border-success" id="subject_2">';
@@ -925,10 +925,11 @@
                             $(".ajaxProgess").hide();
                             var _html='<div class="collapse bg-white show mb-1 pb-2 border-bottom border-light" id="'+clickedcategory.replace("#","")+'">';
                             var json_data=res.posts;
-                            console.log(json_data);
+                            // console.log(json_data);
                             if(json_data.length>=1){
                                 for (var i = 0; i < json_data.length; i++) {
-                                    _html+='<p class="mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify"><a  class="detaildata link-secondary" datalink="'+json_data[i].excel+'"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></a></p>';
+                                    _html+='<button class="btn btn-white detaildata btn-sm rounded-pill shadow-none mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify" type="button" data-toggle="modal" data-target="#exampleModalCenter" table_id="'+json_data[i].table_id+'"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></button>'
+                                    
                                 };
                                 _html+='</div>'
                             } else{
@@ -947,42 +948,45 @@
                 
             });
 
-            //DETAIL DATA
-            // $('body').on('click', 'a.detaildata', function (){
-            //     $(".ajaxProgess").show();
-            //     $("#exampleModalLongTitle").text("memuat....");
-            //     $("#exampleModalContent").text("memuat....");
-            //     $("#modalimage").attr("src","");
-            //     var _currentResult=$(this).attr('datalink');
-            //     console.log(_currentResult);
-            //     $.ajax({
-            //         url:"{% url 'detail_data' %}",
-            //         type:'post',
-            //         data:{
-            //             'csrfmiddlewaretoken':"{{csrf_token}}", 
-            //             'offset':_currentResult,
-            //         },
-            //         dataType:'json',
-            //         // success:function(res){
-            //         //     var _html='';
-            //         //     var json_data=res.posts;
-            //         //     var tes=""
-            //         //     if (json_data.news == ""){
-            //         //         tes = "detil berita tidak tersedia";
-            //         //     }else{
-            //         //         tes = json_data.news;
-            //         //     }
-            //         //     var txt = document.createElement("textarea");
-            //         //     txt.innerHTML = tes;
-            //         //     var output = txt.value;
-            //         //     $("#exampleModalLongTitle").text(json_data.title);
-            //         //     $("#modalimage").attr("src",json_data.picture);
-            //         //     $("#exampleModalContent").html(output);
-            //         //     $("#exampleModalButton").hide();
-            //         //     $(".ajaxProgess").hide();
-            //         // }
-            //     });
-            // });
+            // DETAIL DATA
+            $('body').on('click', 'button.detaildata', function (){
+                $(".ajaxProgess").show();
+                $("#exampleModalLongTitle").text("memuat....");
+                $("#exampleModalContent").text("memuat....");
+                $("#modalimage").attr("src","");
+                var _currentResult=$(this).attr('table_id');
+
+                // console.log(_currentResult);
+                $.ajax({
+                    url:"{% url 'detail_data' %}",
+                    type:'post',
+                    data:{
+                        'csrfmiddlewaretoken':"{{csrf_token}}", 
+                        'offset':_currentResult,
+                    },
+                    dataType:'json',
+                    success:function(res){
+                        var _html='';
+                        var json_data=res.posts;
+                        var tes=""
+                        if (json_data.table == ""){
+                            tes = "detil berita tidak tersedia";
+                        }else{
+                            tes = json_data.table;
+                        }
+                        var txt = document.createElement("textarea");
+                        txt.innerHTML = tes;
+                        var output = txt.value;
+                        // console.log(json_data);
+                        $("#exampleModalLongTitle").text("");
+                        $("#modalimage").attr("src","");    
+                        $("#exampleModalContent").html(output);
+                        $("#exampleModalButton").show();
+                        $("#exampleModalButton").attr("href", json_data.excel)
+                        $(".ajaxProgess").hide();
+                    }
+                });
+            });
 
         });
         
