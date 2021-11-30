@@ -47,7 +47,7 @@ def index(request):
 	}
 
 	return render(request, 'index.html', context)
-def load_init_news(request):
+def load_init_berita(request):
 	url = 'https://webapi.bps.go.id/v1/api/list'
 	params = {
 		'model': 'news',
@@ -60,10 +60,12 @@ def load_init_news(request):
 	res = re.get(url, params=params)
 	data = res.json()
 	posts = data['data'][1]
+	totalitem = data['data'][0]
 	return JsonResponse(data={
 		'posts':posts,
+		'totalitem':totalitem
 	})
-def load_more_news(request):
+def load_more_berita(request):
 	offset=int(request.POST['offset'])
 	page=(offset/10)+1
 	url = 'https://webapi.bps.go.id/v1/api/list'
@@ -86,9 +88,8 @@ def load_more_news(request):
 		'totalResult':totalresult,
 	})
 
-def detail_news(request):
+def detail_berita(request):
 	indeksberita=request.POST['offset']
-	print(indeksberita)
 	url = 'https://webapi.bps.go.id/v1/api/view'
 	params = {
 		'model': 'news',
@@ -100,11 +101,34 @@ def detail_news(request):
 	res = re.get(url, params=params)
 	data = res.json()
 	posts = data['data']
-	print(posts)
 	return JsonResponse(data={
 		'posts':posts,
 	})
-
+def cari_berita(request):
+	keyword=request.POST['offset']
+	posts=[]
+	print(keyword)
+	if len(keyword) > 2:
+		for i in range(100):
+			url = 'https://webapi.bps.go.id/v1/api/list'
+			params = {
+				'model': 'news',
+				'lang': 'ind',
+				'domain': '3501',
+				'page':i+1,
+				'key': '481cbe5f8403e091cb7abfd4d83829a3',
+				'keyword': keyword
+			}
+			res = re.get(url, params=params)
+			data = res.json()
+			if data['data-availability'] != 'list-not-available':
+				posts.extend(data['data'][1])
+			else:
+				break
+	
+	return JsonResponse(data={
+		'posts':posts,
+	})
 
 def load_init_pub(request):
 	url = 'https://webapi.bps.go.id/v1/api/list'
@@ -119,8 +143,10 @@ def load_init_pub(request):
 	res = re.get(url, params=params)
 	data = res.json()
 	posts = data['data'][1]
+	totalitem = data['data'][0]
 	return JsonResponse(data={
 		'posts':posts,
+		'totalitem':totalitem
 	})
 def load_more_pub(request):
 	offset=int(request.POST['offset'])
@@ -147,7 +173,6 @@ def load_more_pub(request):
 
 def detail_pub(request):
 	indekspub=request.POST['offset']
-	print(indekspub)
 	url = 'https://webapi.bps.go.id/v1/api/view'
 	params = {
 		'model': 'publication',
@@ -162,7 +187,30 @@ def detail_pub(request):
 	return JsonResponse(data={
 		'posts':posts,
 	})
+def cari_pub(request):
+	keyword=request.POST['offset']
+	posts=[]
+	if len(keyword) > 2:
+		for i in range(100):
+			url = 'https://webapi.bps.go.id/v1/api/list'
+			params = {
+				'model': 'publication',
+				'lang': 'ind',
+				'domain': '3501',
+				'page':i+1,
+				'key': '481cbe5f8403e091cb7abfd4d83829a3',
+				'keyword': keyword
+			}
+			res = re.get(url, params=params)
+			data = res.json()
+			if data['data-availability'] != 'list-not-available':
+				posts.extend(data['data'][1])
+			else:
+				break
 
+	return JsonResponse(data={
+		'posts':posts,
+	})
 def load_init_brs(request):
 	url = 'https://webapi.bps.go.id/v1/api/list'
 	params = {
@@ -176,8 +224,10 @@ def load_init_brs(request):
 	res = re.get(url, params=params)
 	data = res.json()
 	posts = data['data'][1]
+	totalitem = data['data'][0]
 	return JsonResponse(data={
 		'posts':posts,
+		'totalitem':totalitem
 	})
 def load_more_brs(request):
 	offset=int(request.POST['offset'])
@@ -203,7 +253,6 @@ def load_more_brs(request):
 	})
 def detail_brs(request):
 	indeksbrs=request.POST['offset']
-	print(indeksbrs)
 	url = 'https://webapi.bps.go.id/v1/api/view'
 	params = {
 		'model': 'pressrelease',
@@ -219,6 +268,30 @@ def detail_brs(request):
 		'posts':posts,
 	})
 
+def cari_brs(request):
+	keyword=request.POST['offset']
+	posts=[]
+	if len(keyword) > 2:
+		for i in range(100):
+			url = 'https://webapi.bps.go.id/v1/api/list'
+			params = {
+				'model': 'pressrelease',
+				'lang': 'ind',
+				'domain': '3501',
+				'page':i+1,
+				'key': '481cbe5f8403e091cb7abfd4d83829a3',
+				'keyword': keyword
+			}
+			res = re.get(url, params=params)
+			data = res.json()
+			if data['data-availability'] != 'list-not-available':
+				posts.extend(data['data'][1])
+			else:
+				break
+	
+	return JsonResponse(data={
+		'posts':posts,
+	})
 
 def load_init_data(request):
 	sosial = []
@@ -271,7 +344,6 @@ def detail_data(request):
 	posts=[]
 	offset=str(request.POST['offset'])
 	url = 'https://webapi.bps.go.id/v1/api/view'
-	print(offset)
 	params = {
 		'model': 'statictable',
 		'lang': 'ind',
@@ -282,7 +354,6 @@ def detail_data(request):
 	res = re.get(url, params=params)
 	data = res.json()
 	posts = data['data']
-	print(posts)
 	return JsonResponse(data={
 		'posts':posts,
 	})

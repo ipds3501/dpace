@@ -14,7 +14,9 @@
           </div>
           <div class="modal-body">
             <div id="modalPicture" class="d-flex justify-content-center">
-                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:200px;" loading="lazy">
+                
+                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:100%; max-height:1000px;" loading="lazy">
+    
             </div>
                 
             <div id="exampleModalContent" class="text-justify overflow-auto"></div> 
@@ -314,6 +316,14 @@
         <div class="tab-pane fade" id="pills-publikasi" role="tabpanel" aria-labelledby="pills-publikasi-tab">
             <div class="container container-publikasi mb-2">
                 <div class="row d-flex justify-content-center">
+                    
+
+                    <div class="d-flex example py-3" style="width: 100%;margin:auto;max-width:1000px">
+                        <input class="input_search_publikasi" type="text" placeholder="Cari Publikasi.." name="search2">
+                        <button type="submit" class="cari_publikasi btn btn-secondary m-0">Cari</button>
+                    </div>
+
+
                     <div class="row2 col-md-10">
                     </div>
                 </div>
@@ -324,6 +334,9 @@
         <!--### DATA ###-->
         <div class="tab-pane fade" id="pills-data" role="tabpanel" aria-labelledby="pills-data-tab">
             <div class="container container-data">
+                <div class="row d-flex justify-content-center border border-black bg-dark">
+                    <p class="text-white text-center m-1">Menu ini berisi data data yang dihasilkan oleh BPS yang disajikan dalam bentuk tabel</p>
+                </div>
                 <div class="row row4 d-flex justify-content-center">
                     {% include "snippets/treeview.html" %}
                 </div>
@@ -334,6 +347,12 @@
         <div class="tab-pane fade" id="pills-brs" role="tabpanel" aria-labelledby="pills-brs-tab">
             <div class="container container-brs">
                 <div class="row d-flex justify-content-center">
+
+                    <div class="d-flex example py-3" style="width: 100%;margin:auto;max-width:1000px">
+                        <input class="input_search_brs" type="text" placeholder="Cari BRS.." name="search2">
+                        <button type="submit" class="cari_brs btn btn-secondary m-0">Cari</button>
+                    </div>
+
                     <div class="row5 col-md-10">
                     </div>
                 </div>
@@ -345,10 +364,16 @@
         <div class="tab-pane fade" id="pills-berita" role="tabpanel" aria-labelledby="pills-berita-tab">
             <div class="container container-berita">
                 <div class="row d-flex justify-content-center">
-                     <div class="row1 col-md-10">
+
+                    <div class="d-flex example py-3" style="width: 100%;margin:auto;max-width:1000px">
+                        <input class="input_search_berita" type="text" placeholder="Cari Berita.." name="search2">
+                        <button type="submit" class="cari_berita btn btn-secondary m-0">Cari</button>
+                    </div>
+
+                    <div class="row1 col-md-10">
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center text-light"><button class="btn btn-dark" type="submit" id="load_news" >Muat lebih banyak..</button></div>   
+                <div class="row d-flex justify-content-center text-light"><button class="btn btn-dark" type="submit" id="load_berita" >Muat lebih banyak..</button></div>   
 
             </div>
         </div>
@@ -363,7 +388,6 @@
         const tabs = document.querySelectorAll('.nav-item');
 
         tabs.forEach(clickedTab => {
-            // console.log(tabs);
             clickedTab.addEventListener('click', () => {
                 tabs.forEach(tab => {
                     tab.classList.remove('active');
@@ -383,6 +407,7 @@
             $("#pills-publikasi-tab").on('click',function(){
                 $('#header').text('Publikasi');
                 if($(".post-box-pub").length<1){
+                    $('input:text').val('');
                     $(".ajaxProgess").show();
                     $(".container-publikasi").hide();
                     $(window).scrollTop(0);
@@ -398,13 +423,15 @@
                         success:function(res){
                             $(".ajaxProgess").hide();
                             $(".container-publikasi").show();
-                            var _html='';
+                            var _html='<p class="py-2 text-white text-center">--- Menemukan '+res.totalitem.total+' publikasi ---</p>';
+                           
                             var json_data=res.posts;
-                            console.log(json_data);
                             $.each(json_data,function(index,data){
                                 _html+=
                                 '<div class="row mb-2 border-primary post-box-pub" id="'+data.pub_id+'" >'+
+                                    
                                     '<div class="coverpub col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center text-white border border-secondary">'+(index+1)+' </span>'+
                                         '<img class="img-fluid img-responsive rounded shadow rounded" src="'+data.cover+'" style="max-width:120px;" loading="lazy">'+
                                     '</div>'+
                                     '<div class="col-md-6 infopub">'+
@@ -453,11 +480,13 @@
                         $(".ajaxProgess").hide();
                         var _html='';
                         var json_data=res.posts;
-
+                        var indd = $(".post-box-pub").length;
                         $.each(json_data,function(index,data){
                             _html+=
                                 '<div class="row mb-2 border-primary post-box-pub" id="'+data.pub_id+'" >'+
+
                                     '<div class="coverpub col-md-3 py-3 d-flex justify-content-center" >'+
+                                        '<span class="itemindex text-center text-white border border-secondary">'+(index+1+indd)+' </span>'+
                                         '<img class="img-fluid img-responsive rounded shadow rounded" src="'+data.cover+'" style="max-width:120px;" loading="lazy">'+
                                     '</div>'+
                                     '<div class="col-md-6 infopub">'+
@@ -482,7 +511,6 @@
                            });
                         $(".row2").append(_html);
                         var _countTotal=$(".post-box-pub").length;
-                        // console.log(_countTotal,+'--'+res.totalResult);
                         
                         if(_countTotal==res.totalResult){
                             $("#load_pub").remove();
@@ -500,7 +528,6 @@
                 $("#exampleModalContent").text("memuat....");
                 $("#modalimage").attr("src","");
                 var _currentResult=$(this).parent().parent().parent().attr('id');
-                console.log(_currentResult);
                 $.ajax({
                     url:"{% url 'detail_pub' %}",
                     type:'post',
@@ -522,12 +549,86 @@
                 });
             });
 
+            //CARI PUBLIKASI
+            $('body').on('click', 'button.cari_publikasi', function (){
+                $(".ajaxProgess").show();
+                var _currentResult=$('.input_search_publikasi').val();
+                $.ajax({
+                    url:"{% url 'cari_pub' %}",
+                    type:'post',
+                    data:{
+                        'csrfmiddlewaretoken':"{{csrf_token}}", 
+                        'offset':_currentResult,
+                    },
+                    dataType:'json',
+                    success:function(res){
+                        $(".ajaxProgess").hide();
+                        $(".container-publikasi").show();
+                        var _html='<p class="py-2 text-white text-center">--- Menemukan '+res.posts.length+' publikasi ---</p>';
+                        var json_data=res.posts;
+                        if(_currentResult.length > 1){
+                            if(json_data.length > 0){
+                                $.each(json_data,function(index,data){
+                                    _html+=
+                                    '<div class="row mb-2 border-primary post-box-pub" id="'+data.pub_id+'" >'+
+                                       
+                                        '<div class="coverpub col-md-3 py-3 d-flex justify-content-center">'+
+                                            '<span class="itemindex text-center text-white border border-secondary">'+(index+1)+' </span>'+
+                                            '<img class="img-fluid img-responsive rounded shadow rounded" src="'+data.cover+'" style="max-width:120px;" loading="lazy">'+
+                                        '</div>'+
+                                        '<div class="col-md-6 infopub">'+
+                                            '<p class="h5 pl-1 text-center text-white">'+data.title+'</p>'+
+                                            '<div class="container ml-1 py-2">'+
+                                                '<div class="row d-flex flex-row">'+
+                                                    '<p class="text-info pt-0 m-0 h8">'+
+                                                        '<i class="fas fa-caret-right"></i>'+
+                                                        'Ukuran : '+data.size+'<br>'+
+                                                        '<i class="fas fa-caret-right"></i>'+
+                                                        'Tanggal Rilis : '+data.rl_date+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="detailunduhdiv align-items-center col-md-3 py-2 shadow-sm" >'+
+                                            '<div class="d-flex flex-column">'+
+                                                '<button class="btn btn-white detailpub btn-sm rounded-pill shadow-none" type="button" data-toggle="modal" data-target="#exampleModalCenter">Detail</button>'+
+                                                '<a class="btn text-white btn-sm mt-0 mb-2 rounded-pill shadow-none" role="button" href="'+data.pdf+'" style="background-color:#ab48ab;">Unduh</a>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'
+                                    ;
+                                   });
+                                _html += '<div class="row d-flex justify-content-center"><button class="btn btn-dark" type="submit" id="back_to_init_pub">Kembali ke hasil awal</button></div>' 
+                                $(".row2").html(_html);
+                                $("#load_pub").hide();
 
+                            }else if(json_data.length == 0){
+                                _html = '<p class="text-white text-center">Publikasi dengan kata kunci "'+_currentResult+'" tidak ditemukan</p>'+
+                                '<div class="row d-flex justify-content-center"><button class="btn btn-dark" type="submit" id="back_to_init_pub">Kembali ke hasil awal</button></div>'   
+                                $(".row2").html(_html);
+
+                                $("#load_pub").hide();
+
+                            }
+                        }
+                        $("#back_to_init_pub").on('click',function(){
+                            $(".row2").html('</br>>');
+                            $("#pills-publikasi-tab").click();
+
+                        });
+                            
+                        
+                    }
+                });
+            });
+            
+            
             ////BRS////
             //INIT
             $("#pills-brs-tab").on('click',function(){
                 $('#header').text('Berita Resmi Statistik');
                 if($(".post-box-brs").length<1){
+                    $('input:text').val('');
                     $(".ajaxProgess").show();
                     $(".container-brs").hide();
                     $(window).scrollTop(0);
@@ -543,13 +644,14 @@
                         success:function(res){
                             $(".ajaxProgess").hide();
                             $(".container-brs").show();
-                            var _html='';
+                            var _html='<p class="py-2 text-white text-center">--- Menemukan '+res.totalitem.total+' Berita Resmi Statistik ---</p>';
                             var json_data=res.posts;
-                            console.log(json_data);
                             $.each(json_data,function(index,data){
                                 _html+=
                                 '<div class="row mb-2 border-primary post-box-brs" id="'+data.brs_id+'" >'+
+                                    
                                     '<div class="bg-white col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center border border-secondary">'+(index+1)+' </span>'+
                                         '<img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/cSOFqIp.png" style="max-width:80px; max-height:80px;" loading="lazy">'+
                                     '</div>'+
                                     '<div class="col-md-6 bg-white">'+
@@ -601,10 +703,13 @@
                         $(".ajaxProgess").hide();
                         var _html='';
                         var json_data=res.posts;
+                        var indd=json_data.length;
                         $.each(json_data,function(index,data){
                             _html+=
                                 '<div class="row mb-2 border-primary post-box-brs" id="'+data.brs_id+'" >'+
+                                    
                                     '<div class="bg-white col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center border border-secondary">'+(index+1+indd)+' </span>'+
                                         '<img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/cSOFqIp.png" style="max-width:80px; max-height:80px;" loading="lazy">'+
                                     '</div>'+
                                     '<div class="col-md-6 bg-white">'+
@@ -633,7 +738,6 @@
                            });
                         $(".row5").append(_html);
                         var _countTotal=$(".post-box-brs").length;
-                        console.log(_countTotal,+'--'+res.totalResult);
                         
                         if(_countTotal==res.totalResult){
                             $("#load_brs").remove();
@@ -650,7 +754,6 @@
                 $("#exampleModalContent").text("memuat....");
                 $("#modalimage").attr("src","");
                 var _currentResult=$(this).parent().parent().parent().attr('id');
-                console.log(_currentResult);
                 $.ajax({
                     url:"{% url 'detail_brs' %}",
                     type:'post',
@@ -679,20 +782,93 @@
                     }
                 });
             });
+            //CARI BRS
+            $('body').on('click', 'button.cari_brs', function (){
+                $(".ajaxProgess").show();
+                var _currentResult=$('.input_search_brs').val();
+                $.ajax({
+                    url:"{% url 'cari_brs' %}",
+                    type:'post',
+                    data:{
+                        'csrfmiddlewaretoken':"{{csrf_token}}", 
+                        'offset':_currentResult,
+                    },
+                    dataType:'json',
+                    success:function(res){
+                        $(".ajaxProgess").hide();
+                        $(".container-brs").show();
+                        var _html='<p class="py-2 text-white text-center">--- Menemukan '+res.posts.length+' Berita Resmi Statistik ---</p>';
+                        var json_data=res.posts;
+                        if(_currentResult.length > 1){
+                            if(json_data.length > 0){
+                                $.each(json_data,function(index,data){
+                                    _html+=
+                                '<div class="row mb-2 border-primary post-box-brs" id="'+data.brs_id+'" >'+
 
+                                    '<div class="bg-white col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center border border-secondary">'+(index+1)+' </span>'+
+                                        '<img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/cSOFqIp.png" style="max-width:80px; max-height:80px;" loading="lazy">'+
+                                    '</div>'+
+                                    '<div class="col-md-6 bg-white">'+
+                                        '<p class="h5 pl-1 text-center text-dark">'+data.title+'</p>'+
+                                        '<div class="container ml-1 py-2">'+
+                                            '<div class="row d-flex flex-row">'+
+                                                '<p class="text-info pt-0 m-0 h8">'+
+                                                    '<i class="fas fa-caret-right"></i>'+
+                                                    'Kategori : '+data.subj+'<br>'+
+                                                    '<i class="fas fa-caret-right"></i>'+
+                                                    'Ukuran : '+data.size+'<br>'+
+                                                    '<i class="fas fa-caret-right"></i>'+
+                                                    'Tanggal Rilis : '+data.rl_date+
+                                                '</p>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                   '<div class="align-items-center detailunduhdiv col-md-3 py-2 shadow-sm">'+
+                                        '<div class="d-flex flex-column">'+
+                                            '<button class="btn btn-white detailbrs btn-sm rounded-pill shadow-none" type="button" data-toggle="modal" data-target="#exampleModalCenter">Detail</button>'+
+                                            '<a class="btn text-white btn-sm mt-0 mb-2 rounded-pill shadow-none" role="button" href="'+data.pdf+'" style="background-color:#ab48ab;">Unduh</a>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>';
+                               });
+                                _html += '<div class="row d-flex justify-content-center"><button class="btn btn-dark" type="submit" id="back_to_init_brs">Kembali ke hasil awal</button></div>' 
+                                $(".row5").html(_html);
+                                $("#load_brs").hide();
+
+                            }else if(json_data.length == 0){
+                                _html = '<p class="text-white text-center">BRS dengan kata kunci "'+_currentResult+'" tidak ditemukan</p>'+
+                                '<div class="row d-flex justify-content-center"><button class="btn btn-dark" type="submit" id="back_to_init_brs">Kembali ke hasil awal</button></div>'   
+                                $(".row5").html(_html);
+
+                                $("#load_brs").hide();
+
+                            }
+                        }
+                        $("#back_to_init_brs").on('click',function(){
+                            $(".row5").html('</br>>');
+                            $("#pills-brs-tab").click();
+
+                        });
+                            
+                        
+                    }
+                });
+            });
 
             ////BERITA////
             //INIT
             $("#pills-berita-tab").on('click',function(){
                 $('#header').text('Berita');
-                if($(".post-box-news").length<1){
+                if($(".post-box-berita").length<1){
+                    $('input:text').val('');
                     $(".ajaxProgess").show();
                     $(".container-berita").hide();
                     $(window).scrollTop(0);
-                    $("#load_news").show();
-                    $("#load_news").removeClass('disabled').text('Muat lebih banyak..');
+                    $("#load_berita").show();
+                    $("#load_berita").removeClass('disabled').text('Muat lebih banyak..');
                     $.ajax({
-                        url:"{% url 'load_init_news' %}",
+                        url:"{% url 'load_init_berita' %}",
                         type:'post',
                         data:{
                             'csrfmiddlewaretoken':"{{csrf_token}}"
@@ -701,13 +877,14 @@
                         success:function(res){
                             $(".ajaxProgess").hide();
                             $(".container-berita").show();
-                            var _html='';
+                            var _html='<p class="py-2 text-white text-center">--- Menemukan '+res.totalitem.total+' berita ---</p>';
                             var json_data=res.posts;
-                            console.log(json_data);
                             $.each(json_data,function(index,data){
                                 _html+=
-                                '<div class="row mb-2 border-primary post-box-news" id="'+data.news_id+'" >'+
+                                '<div class="row mb-2 border-primary post-box-berita" id="'+data.news_id+'" >'+
+                                    
                                     '<div class="bg-white col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center border border-secondary">'+(index+1)+' </span>'+
                                         '<img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/pvUvG4W.png" style="max-width:80px; max-height:80px;" loading="lazy">'+
                                     '</div>'+
                                     '<div class="col-md-6 bg-white">'+
@@ -732,7 +909,6 @@
                                 ;
                                });
                             $(".row1").html(_html);
-                            // console.log('success');
                             
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -742,11 +918,11 @@
                 }
             });
             //ADD MORE BERITA
-            $("#load_news").on('click',function(){
+            $("#load_berita").on('click',function(){
                 $(".ajaxProgess").show();
-                var _currentResult=$(".post-box-news").length;
+                var _currentResult=$(".post-box-berita").length;
                 $.ajax({
-                    url:"{% url 'load_more_news' %}",
+                    url:"{% url 'load_more_berita' %}",
                     type:'post',
                     data:{
                         'offset':_currentResult,
@@ -754,16 +930,19 @@
                     },
                     dataType:'json',
                     beforeSend:function(){
-                        $("#load_news").addClass('disabled').text('Loading..');
+                        $("#load_berita").addClass('disabled').text('Loading..');
                     },
                     success:function(res){
                         $(".ajaxProgess").hide();
                         var _html='';
                         var json_data=res.posts;
+                        var indd=json_data.length;
                         $.each(json_data,function(index,data){
                             _html+=
-                                '<div class="row mb-2 border-primary post-box-news" id="'+data.news_id+'" >'+
+                                '<div class="row mb-2 border-primary post-box-berita" id="'+data.news_id+'" >'+
+
                                     '<div class="bg-white col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center border border-secondary">'+(index+1+indd)+' </span>'+
                                         '<img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/pvUvG4W.png" style="max-width:80px; max-height:80px;" loading="lazy">'+
                                     '</div>'+
                                     '<div class="col-md-6 bg-white">'+
@@ -788,13 +967,12 @@
                                 ;
                            });
                         $(".row1").append(_html);
-                        var _countTotal=$(".post-box-news").length;
-                        console.log(_countTotal,+'--'+res.totalResult);
+                        var _countTotal=$(".post-box-berita").length;
                         
                         if(_countTotal==res.totalResult){
-                            $("#load_news").hide();
+                            $("#load_berita").hide();
                         }else{
-                            $("#load_news").removeClass('disabled').text('Muat lebih banyak..');
+                            $("#load_berita").removeClass('disabled').text('Muat lebih banyak..');
                         }
                     }
                 });
@@ -807,9 +985,8 @@
                 $("#exampleModalContent").text("memuat....");
                 $("#modalimage").attr("src","");
                 var _currentResult=$(this).parent().parent().parent().attr('id');
-                // console.log(_currentResult);
                 $.ajax({
-                    url:"{% url 'detail_news' %}",
+                    url:"{% url 'detail_berita' %}",
                     type:'post',
                     data:{
                         'csrfmiddlewaretoken':"{{csrf_token}}", 
@@ -836,15 +1013,85 @@
                     }
                 });
             });
-            
+            //CARI BERITA
+            $('body').on('click', 'button.cari_berita', function (){
+                $(".ajaxProgess").show();
+                var _currentResult=$('.input_search_berita').val();
+                $.ajax({
+                    url:"{% url 'cari_berita' %}",
+                    type:'post',
+                    data:{
+                        'csrfmiddlewaretoken':"{{csrf_token}}", 
+                        'offset':_currentResult,
+                    },
+                    dataType:'json',
+                    success:function(res){
+                        $(".ajaxProgess").hide();
+                        $(".container-berita").show();
+                        var _html='<p class="py-2 text-white text-center">--- Menemukan '+res.posts.length+' Berita ---</p>';
+                        var json_data=res.posts;
+                        
+                        if(_currentResult.length > 1){
+                            if(json_data.length > 0){
+                                $.each(json_data,function(index,data){
+                                    _html+=
+                                '<div class="row mb-2 border-primary post-box-berita" id="'+data.news_id+'" >'+
+                                
+                                    '<div class="bg-white col-md-3 py-3 d-flex justify-content-center">'+
+                                        '<span class="itemindex text-center border border-secondary">'+(index+1)+' </span>'+
+                                        '<img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/pvUvG4W.png" style="max-width:80px; max-height:80px;" loading="lazy">'+
+                                    '</div>'+
+                                    '<div class="col-md-6 bg-white">'+
+                                        '<p class="h5 pl-1 text-center text-dark">'+data.title+'</p>'+
+                                        '<div class="container ml-1 py-2">'+
+                                            '<div class="row d-flex flex-row">'+
+                                                '<p class="text-info pt-0 m-0 h8">'+
+                                                    '<i class="fas fa-caret-right"></i>'+
+                                                    'Kategori : '+data.newscat_name+'<br>'+
+                                                    '<i class="fas fa-caret-right"></i>'+
+                                                    'Tanggal Rilis : '+data.rl_date+
+                                                '</p>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                   '<div class="align-items-center detailunduhdiv col-md-3 py-2 shadow-sm">'+
+                                        '<div class="d-flex flex-column">'+
+                                            '<button class="btn btn-white detailberita btn-sm rounded-pill shadow-none" type="button" data-toggle="modal" data-target="#exampleModalCenter">Detail</button>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'
+                                ;
+                               });
+                                _html += '<div class="row d-flex justify-content-center"><button class="btn btn-dark" type="submit" id="back_to_init_berita">Kembali ke hasil awal</button></div>';
+
+                                $(".row1").html(_html);
+                                $("#load_berita").hide();
+
+                            }else if(json_data.length == 0){
+                                _html = '<p class="text-white text-center">Berita dengan kata kunci "'+_currentResult+'" tidak ditemukan</p>'+
+                                '<div class="row d-flex justify-content-center"><button class="btn btn-dark" type="submit" id="back_to_init_berita">Kembali ke hasil awal</button></div>'   
+                                $(".row1").html(_html);
+
+                                $("#load_berita").hide();
+
+                            }
+                        }
+                        $("#back_to_init_berita").on('click',function(){
+                            $(".row1").html('</br>>');
+                            $("#pills-berita-tab").click();
+
+                        });
+                            
+                        
+                    }
+                });
+            });
 
             ////DATA////
             //INIT
-            // console.log($("#subject_0").length);
             $("#pills-data-tab").on('click',function(){
                 $('#header').text('Data Statistik');
                 if($("#subject_0").length<1){
-                    // console.log($("#subject_0").length);
                     $(".ajaxProgess").show();
                     $(".container-data").hide();
                     $(window).scrollTop(0);
@@ -864,7 +1111,6 @@
                             sosial=res.sosial;
                             ekonomi=res.ekonomi;
                             pertanian=res.pertanian;
-                            // console.log(ekonomi);
                             var _html1='<div class="collapse border border-primary" id="subject_0">';
                             var _html2='<div class="collapse border border-warning" id="subject_1">';
                             var _html3='<div class="collapse border border-success" id="subject_2">';
@@ -900,13 +1146,10 @@
             });
             //ADD MORE DATA
             $('body').on('click', '.subcat', function (){
-                // alert($(this).attr('data-target'));
                 
                 var clickedcategory=($(this).attr('data-target'));
-                // alert(clickedcategory);
                 
                 var isclicked = $('#' + clickedcategory.replace("#","")).length;
-                // console.log(isclicked);
                 if (isclicked === 0){
                     
                     $(".ajaxProgess").show();
@@ -925,7 +1168,6 @@
                             $(".ajaxProgess").hide();
                             var _html='<div class="collapse bg-white show mb-1 pb-2 border-bottom border-light" id="'+clickedcategory.replace("#","")+'">';
                             var json_data=res.posts;
-                            // console.log(json_data);
                             if(json_data.length>=1){
                                 for (var i = 0; i < json_data.length; i++) {
                                     _html+='<button class="btn btn-white detaildata btn-sm rounded-pill shadow-none mb-1 mt-0 mx-0 py-0 pl-3 pr-2 w-100 text-justify" type="button" data-toggle="modal" data-target="#exampleModalCenter" table_id="'+json_data[i].table_id+'"><small><i class="fas fa-caret-right"></i>&nbsp'+json_data[i].title+'</small></button>'
@@ -938,7 +1180,6 @@
                             }
                             
                             var clickedsubcat = "."+clickedcategory.replace("#","");
-                            // console.log(clickedsubcat);
                             $(clickedsubcat).after(_html);
 
 
@@ -956,7 +1197,6 @@
                 $("#modalimage").attr("src","");
                 var _currentResult=$(this).attr('table_id');
 
-                // console.log(_currentResult);
                 $.ajax({
                     url:"{% url 'detail_data' %}",
                     type:'post',
@@ -977,7 +1217,6 @@
                         var txt = document.createElement("textarea");
                         txt.innerHTML = tes;
                         var output = txt.value;
-                        // console.log(json_data);
                         $("#exampleModalLongTitle").text("");
                         $("#modalimage").attr("src","");    
                         $("#exampleModalContent").html(output);

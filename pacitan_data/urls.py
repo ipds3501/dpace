@@ -21,17 +21,20 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', splashViews.index),
     path('init/', views.index),
-    path('load_init_news', views.load_init_news, name='load_init_news'),
-    path('load_more_news', views.load_more_news, name='load_more_news'),
-    path('detail_news', views.detail_news, name='detail_news'),
+    path('load_init_berita', views.load_init_berita, name='load_init_berita'),
+    path('load_more_berita', views.load_more_berita, name='load_more_berita'),
+    path('detail_berita', views.detail_berita, name='detail_berita'),
+    path('cari_berita', views.cari_berita, name='cari_berita'),
 
     path('load_init_pub', views.load_init_pub, name='load_init_pub'),
     path('load_more_pub', views.load_more_pub, name='load_more_pub'),
     path('detail_pub', views.detail_pub, name='detail_pub'),
+    path('cari_pub', views.cari_pub, name='cari_pub'),
 
     path('load_init_brs', views.load_init_brs, name='load_init_brs'),
     path('load_more_brs', views.load_more_brs, name='load_more_brs'),
     path('detail_brs', views.detail_brs, name='detail_brs'),
+    path('cari_brs', views.cari_brs, name='cari_brs'),
 
     path('load_init_data', views.load_init_data, name='load_init_data'),    
     path('load_more_data', views.load_more_data, name='load_more_data'),
