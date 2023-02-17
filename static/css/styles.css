@@ -260,6 +260,10 @@ p{
   background: rgb(117, 179, 60);
   color: white;
 }
+.fa-link {
+  background: rgb(252, 161, 3);
+  color: white;
+}
 
 .fa-whatsapp {
   background: #075E54;
