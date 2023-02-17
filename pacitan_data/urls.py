@@ -19,8 +19,7 @@ from . import views
 from splash import views as splashViews
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', splashViews.index),
-    path('init/', views.index),
+    path('', views.index),
     path('load_init_berita', views.load_init_berita, name='load_init_berita'),
     path('load_more_berita', views.load_more_berita, name='load_more_berita'),
     path('detail_berita', views.detail_berita, name='detail_berita'),

@@ -44,6 +44,20 @@
 {% block content %}
 
     <div class="tab-content pb-5" id="pills-tabContent">
+        <div class="output">
+            <div class="container ">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10">
+
+                        <div class="splash d-flex justify-content-center">
+                            <img class="img-fluid img-responsive rounded py-4 textsplash" src="" style="max-height:500px; margin-top: 100px;" loading="lazy">
+                            <img class="img-fluid img-responsive rounded py-4 textsplash2" src="" style="max-height:150px; margin-top: 300px;" loading="lazy">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div> 
+
         <!--### LOADING CIRCLE ###-->
         <div class="output">
             <div class="container ">
@@ -68,15 +82,15 @@
                             <div class="card-header detailunduhdiv">Galeri Infografis</div>
                             <div class="card-body bg-dark p-0 d-flex align-items-center" >
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
+                                    <ol class="carousel-indicators ">
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="bg-dark active"></li>
                                         {% for p in posts %}
                                             <li class="bg-dark" data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter }}"></li>
                                         {% endfor %}
 
                                     </ol>
-                                    <div class="container carousel-inner">
-                                        <div class="carousel-item active align-items-center col px-0" style="max-width:800px;">
+                                    <div class="container carousel-inner ">
+                                        <div class="carousel-item active align-items-center col px-0 d-flex justify-content-center" style="max-width:800px;">
                                             <img src="https://i.imgur.com/jy3qcbF.jpg" class="mb-3 img-fluid img-responsive w-100 mx-auto  d-block" alt="..." loading="lazy">
                                         </div>
                                         {% for p in posts %}
@@ -257,13 +271,13 @@
                             <div class="card-body container bg-dark" >
                                 <div class="row">
                                     <div class="col d-flex justify-content-center">
-                                        <a href="https://web.facebook.com/bps.kabupatenpacitan" class="w-100 fa fa-facebook"></a>
+                                        <a href="https://web.facebook.com/bps.kabupatenpacitan" class="w-100 fa fa-facebook" target="_blank"></a>
                                     </div>
                                     <div class="col d-flex justify-content-center">
-                                        <a href="https://www.instagram.com/bpspacitankab/" class=" w-100 fa fa-instagram"></a>
+                                        <a href="https://www.instagram.com/bpspacitankab/" class=" w-100 fa fa-instagram" target="_blank"></a>
                                     </div>
                                     <div class="col d-flex justify-content-center">
-                                        <a href="https://www.youtube.com/channel/UCbwT7JFuGqmX4fjLI8WY1DA" class="w-100 fa fa-youtube"></a>
+                                        <a href="https://www.youtube.com/channel/UCbwT7JFuGqmX4fjLI8WY1DA" class="w-100 fa fa-youtube" target="_blank"></a>
                                     </div>
                                     <div class="w-100"></div>
                                     <div class="col d-flex justify-content-center p-0" style="font-size: 10px;">Facebook</div>
@@ -279,13 +293,13 @@
                             <div class="card-body container bg-dark" >
                                 <div class="row">
                                     <div class="col d-flex justify-content-center">
-                                        <a href="https://pacitankab.bps.go.id" class="w-100 fa fa-globe"></a>
+                                        <a href="https://pacitankab.bps.go.id" class="w-100 fa fa-globe" target="_blank"></a>
                                     </div>
                                     <div class="col d-flex justify-content-center">
-                                        <a href="https://play.google.com/store/apps/details?id=id.go.bps.allstats" class="w-100 fa fa-chart-line"></a>
+                                        <a href="https://play.google.com/store/apps/details?id=id.go.bps.allstats" class="w-100 fa fa-chart-line" target="_blank"></a>
                                     </div>
                                     <div class="col d-flex justify-content-center text-white">
-                                        <a href="https://ipds3501.github.io" class="w-100 fa fa-link"></a>
+                                        <a href="https://ipds3501.github.io" class="w-100 fa fa-link" target="_blank"></a>
                                     </div>
                                     <div class="w-100"></div>
                                     <div class="col d-flex justify-content-center p-0" style="font-size: 10px;">Website BPS</div>
@@ -300,8 +314,8 @@
                             <div class="card-header detailunduhdiv">Chat Us</div>
                             <div class="card-body container bg-dark" >
                                 <div class="row">
-                                    <div class="col-sm-12 d-flex justify-content-center">
-                                        <a href="https://wa.me/+6281234563501" class="fa fa-whatsapp w-100"></a>
+                                    <div class="col-sm-12 d-flex justify-content-center" >
+                                        <a href="https://wa.me/+6281234563501" class="fa fa-whatsapp w-100" target="_blank"></a>
                                     </div>
                                     <div class="w-100"></div>
                                     <div class="col d-flex justify-content-center">Layanan Konsultasi Statistik</div>
@@ -400,7 +414,30 @@
             });
             
         });
+
+
+
         $(document).ready(function(){
+            $(".splash").show();
+
+            $(".textsplash").attr("src","https://dpace.herokuapp.com/static/img/DPace%20Logo.png");
+            $(".textsplash").hide().fadeIn(1500);
+            $(".textsplash").delay(2500)
+            $(".textsplash").fadeOut(1000);
+
+            $(".textsplash2").delay(5000)
+            $(".textsplash2").attr("src","https://i.imgur.com/RPqjYSz.png");
+            $(".textsplash2").hide().fadeIn(1000);
+            $(".textsplash2").delay(3000)
+            $(".textsplash2").fadeOut(2000);
+
+            $(".splash").delay(10500).fadeOut(1000);
+            $(".splash").fadeOut(1000, function(){
+                $(this).remove();
+            });
+
+          
+
             ////BERANDA////
             $("#pills-home-tab").on('click',function(){
                 $('#header').text('Beranda');
