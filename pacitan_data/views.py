@@ -4,7 +4,7 @@ from django.http import JsonResponse
 import json
 import ast
 import time
-
+import pandas as pd
 
 def splash(request):
 	context = {
@@ -29,21 +29,28 @@ def index(request):
 	data = res.json()
 	posts = data['data'][1]
 	
-	# #INDICATOR
-	# tes = re.get('https://raw.githubusercontent.com/yustiar/data-pacitan/main/indicator.txt')
-	# indicator=tes.text.split('\n')
-	# indtitle = []
-	# indcontent = []
-	# for i in range(len(indicator)):
-	# 	if (len(indicator[i])>1):
-	# 		indtitle.append(indicator[i].split(';')[0])
-	# 		indcontent.append(indicator[i].split(';')[1])
-	# indall = zip(indtitle, indcontent)
+	initdf = pd.read_csv('https://docs.google.com/spreadsheets/d/'+
+					'1rj5Fo30QSmK1xFbakxOzD24S5H1FzpyX5ZWNS1ISGqE'+
+					'/export?gid=0'+
+                    '&format=csv',
+                     dtype=str,
+                     # Parse column values to datetime
+                    )
+	
+	nama_indikator = initdf['indikator']
+	tahun_indikator = initdf['tahun']	
+	nilai_indikator = initdf['nilai']
+	satuan_indikator = initdf['satuan']
+	icon_indikator = initdf['icon']
+
+	indikator_all = zip(nama_indikator,tahun_indikator,nilai_indikator,satuan_indikator,icon_indikator)
+	print(indikator_all)
+
 	context = {
 		'Title' : 'Data Pacitan | Data Pacitan ',
 		'Heading' : 'Dashboard Data',
 		'posts':posts,
-		# 'indall':indall,
+		'indikator_all':indikator_all,
 	}
 
 	return render(request, 'index.html', context)

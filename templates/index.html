@@ -116,141 +116,23 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card bg-dark text-white">
+                            
                             <div class="card-header detailunduhdiv">Indikator Strategis</div>
+                            
+                            {% for i,j,k,l,m in indikator_all %}
                             <div class="card-body container d-flex p-3 border border-secondary">
                                 <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
+                                    <img src="{{m}}" style="height:70px" />
                                 </div>
                                 <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Jumlah Penduduk, 2022</div>
-                                    <div><h3 class="m-0 text-secondary">592.916</h3><p class="m-0 text-secondary"><small>jiwa</small></p></div>
+                                    <div class="card-indicator-title">
+                                        {{i}}, {{j}}
+                                    </div>
+                                    <div><h3 class="m-0 text-secondary">{{k}}</h3><p class="m-0 text-secondary"><small>{{l}}</small></p></div>
                                 </div>
                             </div>
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Pertambahan Penduduk, 2010-2022</div>
-                                    <div><h3 class="m-0 text-secondary">9.62</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
-                                </div>
-                            </div>
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Laju Pertumbuhan Penduduk, 2010-2022</div>
-                                    <div><h3 class="m-0 text-secondary">0.91</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
-                                </div>
-                            </div>
-
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Rasio Jenis Kelamin, 2022</div>
-                                    <div><h3 class="m-0 text-secondary">100.38</h3><p class="m-0 text-secondary"><small></small></p></div>
-                                </div>
-                            </div>
-
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Jumlah Penduduk Miskin, 2022</div>
-                                    <div><h3 class="m-0 text-secondary">76,93</h3><p class="m-0 text-secondary"><small>ribu jiwa</small></p></div>
-                                </div>
-                            </div>
-
-                           <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Indeks Kedalaman Kemiskinan (P1), 2020</div>
-                                    <div><h3 class="m-0 text-secondary">1.35</h3><p class="m-0 text-secondary"><small></small></p></div>
-                                </div>
-                            </div>
-                               
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Indeks Keparahan Kemiskinan (P2), 2020</div>
-                                    <div><h3 class="m-0 text-secondary">0.23</h3><p class="m-0 text-secondary"><small></small></p></div>
-                                </div>
-                            </div>
-                               
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Garis Kemiskinan</div>
-                                    <div><h3 class="m-0 text-secondary">Rp 327.758,-</h3><p class="m-0 text-secondary"><small></small></p></div>
-                                </div>
-                            </div>
-                               
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Jumlah Angkatan Kerja, 2022</div>
-                                    <div><h3 class="m-0 text-secondary">381.276</h3><p class="m-0 text-secondary"><small>jiwa</small></p></div>
-                                </div>
-                            </div>
-                               
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Tingkat Pengangguran Terbuka, 2022</div>
-                                    <div><h3 class="m-0 text-secondary">3.65</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
-                                </div>
-                            </div>
-                               
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Tingkat Partisipasi Angkatan Kerja, 2022</div>
-                                    <div><h3 class="m-0 text-secondary">82.99</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
-                                </div>
-                            </div>
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Pertumbuhan Ekonomi, 2021</div>
-                                    <div><h3 class="m-0 text-secondary">2,49</h3><p class="m-0 text-secondary"><small>persen</small></p></div>
-                                </div>
-                            </div>
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Indeks Pembangunan Manusia, 2020</div>
-                                    <div><h3 class="m-0 text-secondary">68.39</h3><p class="m-0 text-secondary"><small></small></p></div>
-                                </div>
-                            </div>
-                            <div class="card-body container d-flex p-3 border border-secondary">
-                                <div class="card-indicator-icon mr-3">
-                                    <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/50/000000/external-growth-graph-marketing-growth-flatart-icons-flat-flatarticons.png" style="height:70px" />
-                                </div>
-                                <div class="card-indicator-text">
-                                    <div class="card-indicator-title">Indeks Pembangunan Gender, 2020</div>
-                                    <div><h3 class="m-0 text-secondary">84.87</h3><p class="m-0 text-secondary"><small></small></p></div>
-                                </div>
-                            </div>
+                            {% endfor %}
+                            
                         </div>
 
                             
@@ -315,7 +197,7 @@
                             <div class="card-body container bg-dark" >
                                 <div class="row">
                                     <div class="col-sm-12 d-flex justify-content-center" >
-                                        <a href="https://wa.me/+6281234563501" class="fa fa-whatsapp w-100" target="_blank"></a>
+                                        <a href="https://api.whatsapp.com/send?phone=6281234563501" class="fa fa-whatsapp w-100" target="_blank"></a>
                                     </div>
                                     <div class="w-100"></div>
                                     <div class="col d-flex justify-content-center">Layanan Konsultasi Statistik</div>
