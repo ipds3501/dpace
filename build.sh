@@ -1,3 +1,4 @@
 #!/bin/bash
-# build.sh
-python manage.py collectstatic --noinput
+echo "Running collectstatic..."
+python manage.py collectstatic --noinput --clear
+echo "Build completed!"

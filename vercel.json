@@ -15,17 +15,12 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/media/(.*)",
+      "src": "/media/(.*)", 
       "dest": "/media/$1"
     },
     {
       "src": "/(.*)",
       "dest": "dpace/wsgi.py"
     }
-  ],
-  "build": {
-    "env": {
-      "PYTHONPATH": "/vercel/path0"
-    }
-  }
+  ]
 }

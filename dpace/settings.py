@@ -1,13 +1,12 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-dev-secret")
-DEBUG = False  # Set False untuk production
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1', '.now.sh']
+DEBUG = False
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', 'localhost', '127.0.0.1']
 
-# Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,12 +67,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Static files configuration untuk Vercel
+# Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# WhiteNoise configuration
+# WhiteNoise configuration untuk production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
@@ -81,3 +80,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Untuk Vercel deployment
+if os.environ.get('VERCEL'):
+    DEBUG = False
