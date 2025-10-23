@@ -1,9 +1,8 @@
 from django.shortcuts import render
-import requests as re 
 from django.http import JsonResponse
-import json
+
+import requests as re 
 import ast
-import time
 import pandas as pd
 
 def splash(request):
