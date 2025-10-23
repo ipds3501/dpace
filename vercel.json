@@ -4,6 +4,7 @@
     "use": "@vercel/python",
     "config": { "maxLambdasize": "15mb", "runtime": "python3.12" }
   }],
+  
   "routes":[
     {"src": "/(.*)", "dest": "dpace/wsgi.py"},
     {"src": "/static/(.*)", "dest": "/static/$1" },
