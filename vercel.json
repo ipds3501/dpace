@@ -2,9 +2,9 @@
   "builds": [{
     "src": "dpace/wsgi.py",
     "use": "@vercel/python",
-    "config": { "maxLambdasize": "15mb", "runtime": "python3.12" }
+    "config": { "maxLambdasize": "15mb", "runtime": "python3.10" }
   }],
-  
+
   "routes":[
     {"src": "/(.*)", "dest": "dpace/wsgi.py"},
     {"src": "/static/(.*)", "dest": "/static/$1" },
