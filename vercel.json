@@ -1,26 +1,14 @@
 {
-  "builds": [
-    {
-      "src": "dpace/wsgi.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.10"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/media/(.*)", 
-      "dest": "/media/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "dpace/wsgi.py"
-    }
-  ]
+	"builds": [{
+		"src": "sateblora/wsgi.py",
+		"use": "@vercel/python",
+		"config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
+
+	}],
+
+	"routes":[
+		{"src": "/(.*)", "dest": "sateblora/wsgi.py"},
+		{ "src": "/static/(.*)", "dest": "/static/$1" }
+
+	]
 }
