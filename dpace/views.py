@@ -28,6 +28,16 @@ def index(request):
 	res = re.get(url, params=params)
 	data = res.json()
 	posts = data['data'][1]
+	judul_infografis = []
+	gambar_infografis = []
+	download_infografis = []
+
+	for item in posts:
+	    judul_infografis.append(item['title'])
+	    gambar_infografis.append(item['img'])
+	    download_infografis.append(item['dl'])
+
+	infografis_all = zip(judul_infografis,gambar_infografis,download_infografis)
 	
 	initdf = pd.read_csv('https://docs.google.com/spreadsheets/d/'+
 					'1rj5Fo30QSmK1xFbakxOzD24S5H1FzpyX5ZWNS1ISGqE'+
@@ -49,11 +59,38 @@ def index(request):
 	context = {
 		'Title' : 'Data Pacitan | Data Pacitan ',
 		'Heading' : 'Dashboard Data',
+		'infografis_all':infografis_all,
 		'posts':posts,
 		'indikator_all':indikator_all,
 	}
 
 	return render(request, 'index.html', context)
+
+
+def load_more_infografis(request):
+	offset=int(request.POST['offset'])
+	page=(offset/10)+1
+	url = 'https://webapi.bps.go.id/v1/api/list'
+	params = {
+		'model': 'infographic',
+		'lang': 'ind',
+		'domain': '3501',
+		'page':page,
+		'key': '481cbe5f8403e091cb7abfd4d83829a3'
+	}
+	posts=[]
+
+	res = re.get(url, params=params)
+	data = res.json()
+
+	posts = data['data'][1]
+	totalresult = data['data'][0]['total']
+	return JsonResponse(data={
+		'posts':posts,
+		'totalResult':totalresult,
+	})
+
+
 def load_init_berita(request):
 	url = 'https://webapi.bps.go.id/v1/api/list'
 	params = {

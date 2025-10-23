@@ -1,4 +1,4 @@
-"""pacitan_data URL Configuration
+"""dpace URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -20,6 +20,8 @@ from splash import views as splashViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('load_more_infografis', views.load_more_infografis, name='load_more_infografis'),
+    
     path('load_init_berita', views.load_init_berita, name='load_init_berita'),
     path('load_more_berita', views.load_more_berita, name='load_more_berita'),
     path('detail_berita', views.detail_berita, name='detail_berita'),

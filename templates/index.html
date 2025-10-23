@@ -15,7 +15,7 @@
           <div class="modal-body">
             <div id="modalPicture" class="d-flex justify-content-center">
                     
-                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-width:30%; max-height:1000px;" loading="lazy">
+                <img class="img-fluid img-responsive rounded pb-2" id="modalimage" src="" style="max-height:1000px;" loading="lazy">
     
             </div>
                 
@@ -49,9 +49,9 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-10">
 
-                        <div class="splash d-flex justify-content-center" >
-                            <img class="img-fluid img-responsive rounded py-4 textsplash" src="" style="max-height:400px; margin-top: 100px;" loading="lazy">
-                            <img class="img-fluid img-responsive rounded py-4 textsplash2" src="" style="max-height:100px; margin-top: 300px;" loading="lazy">
+                        <div class="splash d-flex flex-column justify-content-center align-items-center">
+                            <img class="img-fluid img-responsive rounded textsplash" src="" style="max-height: 300px;" loading="lazy">
+                            <img class="img-fluid img-responsive rounded textsplash2 mt-4" src="" style="max-height: 100px;" loading="lazy">
                         </div>
                     </div> 
                 </div>
@@ -77,37 +77,34 @@
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="container mb-2">
                 <div class="d-flex justify-content-center row">
-                    <div class="col-md-8 py-2">
-                        <div class="card text-white p-0" >
-                            <div class="card-header detailunduhdiv">Galeri Infografis</div>
-                            <div class="card-body bg-dark p-0 d-flex align-items-center" >
-                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators ">
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="bg-dark active"></li>
-                                        {% for p in posts %}
-                                            <li class="bg-dark" data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter }}"></li>
-                                        {% endfor %}
-
-                                    </ol>
-                                    <div class="container carousel-inner ">
-                                        <div class="carousel-item active align-items-center col px-0 d-flex justify-content-center" style="max-width:800px;">
-                                            <img src="https://i.imgur.com/jy3qcbF.jpg" class="mb-3 img-fluid img-responsive w-100 mx-auto  d-block" alt="..." loading="lazy">
+                    <div class="col-md-8 py-2">    
+                        <div class="card border-0">
+                            <div class="card-header text-white detailunduhdiv">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div class="icon-header bg-darkwarning"> <i class="bx bxs-slideshow bx-tada"></i> </div>
+                                        <div class="ms-2 c-details">
+                                            <h5 class="mb-0 fw-bold">Galeri Infografis</h5  >
                                         </div>
-                                        {% for p in posts %}
-                                            <div class="carousel-item align-items-center col px-0">
-                                                <img src="{{p.img}}" class="mx-auto  d-block mb-3 img-fluid img-responsive w-100" alt="..." loading="lazy">
-                                            </div>
-
-                                        {% endfor %}
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                        <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body container overflow-auto" style="max-height: 500px;">
+                                <div class="row row_infografis p-2 align-items-center d-flex justify-content-center">
+                                    {% for i,j,k in infografis_all %}
+                                        <div class="col-4 col-md-4 col-lg-2 p-1 position-relative post-box-infografis">
+                                            <div class="card-infografis" data-toggle="modal" data-target="#exampleModalCenter">
+                                                <img src="{{ j }}" class="img-thumbnail" alt="{{ i }}" data-url="{{ k }}" loading="lazy">
+                                                <div class="judul-infografis">
+                                                    <p class="m-0">{{ i }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="row d-flex justify-content-center align-items-center p-2 mb-2">
+                                    <button class="btn btn-sm btn-dark fw-bold w-50" type="submit" id="load_infografis">Muat lebih banyak..</button>
                                 </div>
                             </div>
                         </div>
@@ -301,22 +298,26 @@
 
         $(document).ready(function(){
 
-            $(".splash").show();
+            $(document).ready(function() {
+              // Tampilkan splash
+              $(".splash").show();
 
-            $(".textsplash").attr("src","https://dpace.herokuapp.com/static/img/DPace%20Logo.png");
-            $(".textsplash").hide().fadeIn(1500);
-            $(".textsplash").delay(2500)
-            $(".textsplash").fadeOut(1000);
+              // Langkah 1: Logo utama muncul
+              $(".textsplash").attr("src", "https://dpace.herokuapp.com/static/img/DPace%20Logo.png");
+              $(".textsplash").fadeTo(1500, 1).delay(2500).fadeTo(1000, 0);
 
-            $(".textsplash2").delay(5000)
-            $(".textsplash2").attr("src","https://i.imgur.com/RPqjYSz.png");
-            $(".textsplash2").hide().fadeIn(1000);
-            $(".textsplash2").delay(3000)
-            $(".textsplash2").fadeOut(2000);
+              // Langkah 2: Logo kedua muncul setelah jeda
+              setTimeout(() => {
+                $(".textsplash2").attr("src", "https://i.imgur.com/RPqjYSz.png");
+                $(".textsplash2").fadeTo(1000, 1).delay(3000).fadeTo(2000, 0);
+              }, 5000);
 
-            $(".splash").delay(10500).fadeOut(1000);
-            $(".splash").fadeOut(1000, function(){
-                $(this).remove();
+              // Langkah 3: Tutup splash setelah semua animasi selesai
+              setTimeout(() => {
+                $(".splash").fadeOut(1000, function() {
+                  $(this).remove(); // hapus dari DOM agar tidak mengganggu elemen lain
+                });
+              }, 10500);
             });
 
           
@@ -325,6 +326,73 @@
             $("#pills-home-tab").on('click',function(){
                 $('#header').text('Beranda');
             });
+
+            //DETAIL INFOGRAFIS
+            $('body').on('click', 'div.card-infografis', function (){
+                $("#modalimage").removeClass("w-25");
+                $("#modalimage").removeClass("w-50");
+                $("#modalimage").removeClass("w-100");
+                $("#modalimage").addClass("w-100");
+
+                $("#exampleModalLongTitle").text($(this).find('p').text());
+                $("#exampleModalContent").text("");
+                $("#modalimage").attr("src",$(this).find('img').attr('src'));
+                $("#exampleModalButton").show();
+                $("#exampleModalButton").attr("href", $(this).find('img').attr('data-url'));
+            });
+
+            //LOAD MORE INFOGRAFIS
+            $("#load_infografis").on('click',function(){
+                $(".ajaxProgess").show();
+                var _currentResult=$(".post-box-infografis").length;
+                console.log(_currentResult);
+                $.ajax({
+                    url:"{% url 'load_more_infografis' %}",
+                    type:'post',
+                    data:{
+                        'offset':_currentResult,
+                        'csrfmiddlewaretoken':"{{csrf_token}}"
+                    },
+                    dataType:'json',
+                    beforeSend:function(){
+                        $("#load_infografis").addClass('disabled').text('Loading..');
+                    },
+                    success:function(res){
+                        $(".ajaxProgess").hide();
+                        var _html='';
+                        var json_data=res.posts;
+                        console.log(json_data);
+                        var indd = $(".post-box-infografis").length;
+                        $.each(json_data,function(index,data){
+                            _html+= `
+                            <div class="col-4 col-md-4 col-lg-2 p-1 position-relative post-box-infografis">
+                                <div class="card-infografis" data-toggle="modal" data-target="#exampleModalCenter">
+                                    <img src="${data.img}" class="img-thumbnail" alt="..." data-url="${data.dl}" loading="lazy">
+                                    <div class="judul-infografis">
+                                        <p class="m-0">${data.title}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            `;
+                                
+
+
+                                
+                                
+                           });
+                        $(".row_infografis").append(_html);
+                        var _countTotal=$(".post-box-infografis").length;
+                        
+                        if(_countTotal==res.totalResult){
+                            $("#load_infografis").remove();
+                        }else{
+                            $("#load_infografis").removeClass('disabled').text('Muat lebih banyak..');
+                        }
+                    }
+                });
+            });
+
             ////PUBLIKASI////
             //INIT
             $("#pills-publikasi-tab").on('click',function(){

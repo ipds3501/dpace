@@ -48,19 +48,45 @@ p{
   cursor: pointer;
 }
 
+
+
 .splash {
   position: fixed;
-  display: show;
+  inset: 0; /* shorthand untuk top,left,right,bottom = 0 */
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(20, 20, 20, 0.98);
-  z-index: 2000;
-  cursor: pointer;
+  background-color: rgba(10, 10, 10, 0.97);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: fadeIn 0.8s ease forwards;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.textsplash,
+.textsplash2 {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.textsplash {
+  transform: scale(0.9);
+  animation: zoomIn 1.5s ease forwards;
+}
+
+@keyframes zoomIn {
+  to { transform: scale(1); }
+}
+
+
+
+
 
 #pills-tab{
 	max-height: 50px;
@@ -363,3 +389,47 @@ div.example::after {
 
 }
 
+
+.card-infografis {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.card-infografis:hover {
+  transform: scale(1.03);
+}
+
+/* Elemen judul (awalnya tersembunyi di bawah) */
+.judul-infografis {
+  position: absolute;
+  bottom: -100%; /* Mulai dari bawah gambar */
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 0.85em;
+  transition: all 0.4s ease-in-out;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Saat gambar di-hover: judul muncul ke atas */
+.card-infografis:hover .judul-infografis {
+  bottom: 0; /* Naik ke posisi bawah gambar */
+}
+
+/* Efek tambahan agar teks muncul lembut */
+.judul-infografis p {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.card-infografis:hover .judul-infografis p {
+  opacity: 1;
+  transform: translateY(0);
+}
